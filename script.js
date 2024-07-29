@@ -104,9 +104,14 @@ function playRound(humanChoice, computerChoice) {
 }
 
 
-const humanSelection = getHumanChoice();
-const computerSelection = getComputerChoice();
-console.log(humanSelection);
-console.log(computerSelection);
+// function that plays 5 rounds of rock paper scissors
+function playGame() {
+    for (let i = 0; i < 5; i++) {
+        const humanChoice = getHumanChoice();
+        const computerChoice = getComputerChoice();
 
-playRound(humanSelection, computerSelection);
+        playRound(humanChoice, computerChoice);
+    }
+}
+
+playGame();
