@@ -4,6 +4,7 @@ console.log("Hello World!");
 
 let humanScore = 0;
 let computerScore = 0;
+let roundsPlayed = 0;
 
 function getComputerChoice() {
 
@@ -30,29 +31,7 @@ function getComputerChoice() {
     }
 }
 
-
-function getHumanChoice() {
-    /* get user input */
-   let input = prompt("What is your choice?", "either rock, paper, or scissors");
-
-   if (input.toLowerCase() === "rock") {
-    return "rock"
-   }
-   else if (input.toLowerCase() === "paper") {
-    return "paper"
-   }
-   else if (input.toLowerCase() === "scissors") {
-    return "scissors"
-   }
-
-   /* if it doesnt match one of the options, prompt the user again */
-   else {
-    return getHumanChoice();
-   }
-
-}
-
-
+// user input now comes from buttons
 function playRound(humanChoice, computerChoice) {
     const resultDiv = document.querySelector("#results");
 
@@ -102,20 +81,42 @@ function playRound(humanChoice, computerChoice) {
     else {
         console.log("Error, wrong or no choice given.");
     }
+
+    roundsPlayed += 1;
+    console.log(roundsPlayed + "roundsplayed");
+    
+    const humanScoreDiv = document.querySelector("#humanScore");
+    const computerScoreDiv = document.querySelector("#computerScore");
+
+    humanScoreDiv.textContent = `Your Score: ${humanScore}`;
+    computerScoreDiv.textContent = `Computer Score:  ${computerScore}`;
+
+    const winnerDisplay = document.querySelector("#winnerDisplay");
+
+    if (roundsPlayed === 5) {
+
+        if (humanScore >= computerScore) {
+            winnerDisplay.textContent = "You Won!";
+            winnerDisplay.setAttribute("style", "color: green");
+        }
+        else {
+            winnerDisplay.textContent = "You Lost!"
+            winnerDisplay.setAttribute("style", "color: red");
+        }
+    }
+
+    if (roundsPlayed > 5 ) {
+            winnerDisplay.textContent = "";
+            humanScore = 0;
+            humanScoreDiv.textContent = "";
+            computerScore = 0;
+            computerScoreDiv.textContent = "";
+            roundsPlayed = 0;
+            resultDiv.textContent = "";
+    }
+
+    
 }
-
-
-// function that plays 5 rounds of rock paper scissors
-// function playGame() {
-//     for (let i = 0; i < 5; i++) {
-//         const humanChoice = getHumanChoice();
-//         const computerChoice = getComputerChoice();
-
-//         playRound(humanChoice, computerChoice);
-//     }
-// }
-
-
 
 const rockBtn = document.querySelector("#rock");
 rockBtn.addEventListener("click", () => {
@@ -132,4 +133,3 @@ scissorsBtn.addEventListener("click", () => {
     playRound(scissorsBtn.id, getComputerChoice());
 });
 
-// playGame();
